@@ -2,22 +2,31 @@
 #include <QTimer>
 #include <QMediaPlayer>
 #include "Enemy.h"
+#include "Button.h"
 
 #include <QFileInfo>
 #include <iostream>
 
 Game::Game(QWidget * parent){
-    // create scene
-    scene = new QGraphicsScene();
-    int sceneWidth = 800;
-    int sceneHeight = 600;
-    scene->setSceneRect(0, 0, sceneWidth, sceneHeight);
 
-    // add view
-    setScene(scene);
+    int sceneWidth = 1024;
+    int sceneHeight = 768;
+
+    // set up screen
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(sceneWidth, sceneHeight);
+
+    // set up scene
+    scene = new QGraphicsScene();
+    scene->setSceneRect(0, 0, sceneWidth, sceneHeight);
+    setScene(scene);
+}
+
+
+void Game::start(){
+    // clear the screen
+    scene->clear();
 
     // create the player, make it focusable and add to the scene
     player = new Player();
@@ -54,7 +63,32 @@ Game::Game(QWidget * parent){
     music->play();
     qDebug() << music->errorString();
 
-    // show view
-    show();
+}
+
+void Game::displayMainMenu(){
+    // create title text
+    QGraphicsTextItem *titleText = new QGraphicsTextItem(QString("Space Invaders"));
+    QFont titleFont("comic sans", 50);
+    titleText->setFont(titleFont);
+    int xTitlePos = this->width()/2 - titleText->boundingRect().width()/2;
+    int yTitlePos = 150;
+    titleText->setPos(xTitlePos, yTitlePos);
+    scene->addItem(titleText);
+
+    // create play button
+    Button *playButton = new Button(QString("Play"));
+    int xPlayPos = this->width()/2 - playButton->boundingRect().width()/2;
+    int yPlayPos = 275;
+    playButton->setPos(xPlayPos, yPlayPos);
+    connect(playButton, SIGNAL(clicked()), this, SLOT(start()));
+    scene->addItem(playButton);
+
+    // create quit button
+    Button *quitButton = new Button(QString("Quit"));
+    int xQuitPos = this->width()/2 - quitButton->boundingRect().width()/2;
+    int yQuitPos = 350;
+    quitButton->setPos(xQuitPos, yQuitPos);
+    connect(quitButton, SIGNAL(clicked()), this, SLOT(close()));
+    scene->addItem(quitButton);
 
 }

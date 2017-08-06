@@ -9,7 +9,7 @@ class Bullet: public QObject, public QGraphicsRectItem{
 public:
     Bullet();
 public slots:
-    // means it can be connected to a signal
+    // "public slots" means it can be connected to a signal
     void move();
 };
 

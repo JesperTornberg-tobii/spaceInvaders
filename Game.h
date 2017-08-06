@@ -9,13 +9,22 @@
 #include "Health.h"
 
 class Game: public QGraphicsView{
+    Q_OBJECT
 public:
-    Game(QWidget * parent=0);
+    // constructors (parent allows the game to be included in an other window)
+    Game(QWidget * parent=NULL);
 
+    // methods
+    void displayMainMenu();
+
+    // attributes
     QGraphicsScene * scene;
     Player * player;
     Score * score;
     Health * health;
+
+public slots:
+    void start();
 
 };
 
