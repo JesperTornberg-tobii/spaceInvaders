@@ -19,7 +19,7 @@ void Health::decrease(){
     health--;
     if (gameOver()){
         // Close the application
-        game->displayMainMenu();
+        game->displayGameOver();
     } else {
         // Update the text
         setPlainText(QString("Health: ") + QString::number(health));
