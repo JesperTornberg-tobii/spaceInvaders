@@ -10,12 +10,12 @@ void Player::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_A){
         // Move left
         if (pos().x() > 0)
-            setPos(x()-10, y());
+            setPos(x()-20, y());
     }
     else if (event->key() == Qt::Key_D) {
         // Move right
         if (pos().x() + 100 < 800)
-            setPos(x()+10, y());
+            setPos(x()+20, y());
     }
     else if (event->key() == Qt::Key_Space){
         // Create a bullet

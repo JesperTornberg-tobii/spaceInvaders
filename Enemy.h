@@ -7,7 +7,11 @@
 class Enemy: public QObject, public QGraphicsRectItem{
     Q_OBJECT
 public:
+    // Constructor
     Enemy();
+
+    int speed;
+
 public slots:
     void move();
 };
