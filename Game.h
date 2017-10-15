@@ -25,6 +25,8 @@ public:
     Player * player;
     Score * score;
     Health * health;
+    int sceneWidth;
+    int sceneHeight;
 
 public slots:
     void start();

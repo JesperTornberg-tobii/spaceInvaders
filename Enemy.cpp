@@ -5,6 +5,7 @@
 #include <stdlib.h> // rand()
 #include "Game.h"
 
+#include <iostream>
 #include <QDebug>
 
 extern Game * game;
@@ -14,11 +15,15 @@ Enemy::Enemy(): QObject(), QGraphicsRectItem(){
     srand((unsigned) time(0));
 
     // set random postion
-    int random_positon = rand() % 700;
+    int random_positon = rand() % (game->sceneWidth);
     setPos(random_positon, 0);
 
-    // set random speed
-    Enemy::speed = 3 + (rand() % 7);
+    // set random speed (something weird is going on as the speed
+    // sometimes seems disconnected from the actual velocity of
+    // the enemy i.e. moving way faster than they should)
+    int extraSpeed = rand() % 7;
+    std::cout << "Random extra speed: " << extraSpeed << std::endl;
+    Enemy::speed = 3 + extraSpeed;
 
     // Draw the enemy
     int random_width = 25 + (rand() % 100);
@@ -31,6 +36,7 @@ Enemy::Enemy(): QObject(), QGraphicsRectItem(){
 
     // randomize spawn time
     int spawn_time = rand() % 50;
+    std::cout << "Spawn time: " << spawn_time << std::endl << std::endl;
     timer->start(spawn_time);
 }
 
@@ -38,7 +44,7 @@ void Enemy::move(){
 
     // Move enemy down
     setPos(x(), y()+Enemy::speed);
-    if (pos().y() - rect().height() > 600){
+    if (pos().y() - rect().height() > (game->sceneHeight)){
         game->health->decrease();
         scene()->removeItem(this);
         delete this;

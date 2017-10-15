@@ -3,8 +3,11 @@
 #include <QKeyEvent>
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Game.h"
 
 #include <QDebug>
+
+extern Game * game;
 
 void Player::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_A){
@@ -14,7 +17,7 @@ void Player::keyPressEvent(QKeyEvent *event){
     }
     else if (event->key() == Qt::Key_D) {
         // Move right
-        if (pos().x() + 100 < 800)
+        if (pos().x() + 100 < (game->sceneWidth))
             setPos(x()+20, y());
     }
     else if (event->key() == Qt::Key_Space){

@@ -9,8 +9,8 @@
 
 Game::Game(QWidget * parent){
 
-    int sceneWidth = 1024;
-    int sceneHeight = 768;
+    sceneWidth = 1024;
+    sceneHeight = 768;
 
     // set up screen
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -53,7 +53,7 @@ void Game::start(){
     // spawn enemies, might not want to keep it inside "player"
     QTimer * timer = new QTimer();
     QObject::connect(timer, SIGNAL(timeout()), player, SLOT(spawn()));
-    int spawnTime = 2000;
+    int spawnTime = 500 + rand() % 2000;
     timer->start(spawnTime);
 
     // play background music
